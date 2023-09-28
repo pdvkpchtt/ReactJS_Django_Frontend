@@ -10,7 +10,9 @@ function App() {
     <div className="bg-[#f6f6f8] dark:bg-[#141414] transition duration-[250ms]">
       <Header />
       <Layout>
-        <ThemeHandler />
+        <div className="[@media(hover)]:hidden fixed top-[20px] right-[20px]">
+          <ThemeHandler />
+        </div>
       </Layout>
       <BottomNav />
     </div>
