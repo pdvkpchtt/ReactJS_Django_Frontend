@@ -5,6 +5,11 @@ import ThemeHandler from "./shared/ui/ThemeHandler";
 
 function App() {
   // bg-white dark:bg-[#212122]
+  // const [navState, setNavState] = useState([
+  //   { id: 0, active: true, name: "Для вас" },
+  //   { id: 1, active: false, name: "Образование" },
+  //   { id: 2, active: false, name: "Офтоп" },
+  // ]);
 
   return (
     <div className="bg-[#f6f6f8] dark:bg-[#141414] transition duration-[250ms]">

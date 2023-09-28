@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  -webkit-tap-highlight-color: transparent; /* remove blue bg on click */
+}
+
+.hideScrollbarNav {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hideScrollbarNav::-webkit-scrollbar {
+  display: none;
+}
