@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom";
+
+import {
+  ComputerIcon,
+  ProfileIcon,
+  SearchIcon,
+} from "../shared/icons/NavIcons";
 import ThemeHandler from "../shared/ui/ThemeHandler";
 
 const Header = () => {
@@ -7,6 +14,20 @@ const Header = () => {
         <p className="font-bold text-[32px] text-[#79a7d3] leading-[38.4px] tracking-[-0.023em] mt-[8px] mb-[16px] select-none">
           django
         </p>
+
+        <div className="flex flex-row gap-[64px] mt-[17px] mb-[20px]">
+          <Link to={"/feed"}>
+            <ComputerIcon />
+          </Link>
+
+          <Link to={"/users"}>
+            <SearchIcon />
+          </Link>
+
+          <Link to={"/profile"}>
+            <ProfileIcon />
+          </Link>
+        </div>
 
         <ThemeHandler />
       </div>
