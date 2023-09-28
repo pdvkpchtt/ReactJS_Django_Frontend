@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import BottomNav from "./components/BottomNav";
+import Header from "./components/Header";
+import Layout from "./components/Layout";
+import ThemeHandler from "./shared/ui/ThemeHandler";
 
 function App() {
+  // bg-white dark:bg-[#212122]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-[#f6f6f8] dark:bg-[#141414] transition duration-[250ms]">
+      <Header />
+      <Layout>
+        <ThemeHandler />
+      </Layout>
+      <BottomNav />
     </div>
   );
 }
