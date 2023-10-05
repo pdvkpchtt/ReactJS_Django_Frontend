@@ -45,13 +45,18 @@ const Search = () => {
             : { y: 0 }
         }
         transition={{ duration: 0.2 }}
-        className="bg-white dark:bg-[#212122] fixed  p-[12px] border-b-[#e7e7e7] dark:border-b-[#282828]
-      [@media(hover)]:rounded-[20px] [@media(hover)]:w-[968px]
-      [@media(pointer:coarse)]:left-0  [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full 
-      [@media(pointer:coarse)]:border-b-[0.7px] z-[9]
-      "
+        className={`fixed
+      [@media(hover)]:rounded-[20px] [@media(hover)]:w-[980px]
+      [@media(pointer:coarse)]:left-0  [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full z-[9]
+      `}
       >
-        <SearchInput placeholder="Поиск пользователей..." />
+        <div
+          className={`bg-white dark:bg-[#212122] [@media(hover)]:rounded-[20px] [@media(hover)]:border-[1px] [@media(hover)]:border-[#e7e7e7] [@media(hover)]:dark:border-[#282828] [@media(pointer:coarse)]:border-b-[0.7px] transition duration-[250ms] p-[12px] [@media(pointer:coarse)]:border-b-[#e7e7e7] [@media(pointer:coarse)]:dark:border-b-[#282828]
+      
+      `}
+        >
+          <SearchInput placeholder="Поиск пользователей..." />
+        </div>
       </motion.div>
 
       <div className="[@media(hover)]:mt-[76px] flex flex-col gap-[8px]">
