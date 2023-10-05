@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import Layout from "./components/Layout";
@@ -5,24 +7,23 @@ import NavHandler from "./pages/NavHandler";
 import ThemeHandler from "./shared/ui/ThemeHandler";
 
 function App() {
-  // bg-white dark:bg-[#212122]
-  // const [navState, setNavState] = useState([
-  //   { id: 0, active: true, name: "Для вас" },
-  //   { id: 1, active: false, name: "Образование" },
-  //   { id: 2, active: false, name: "Офтоп" },
-  // ]);
-
   return (
     <>
       <Header />
       <Layout>
-        <div className="[@media(hover)]:hidden fixed bottom-[83px] right-[20px]">
+        <div className="[@media(hover)]:hidden fixed top-[5px] z-[10] right-[12px]">
           <ThemeHandler />
         </div>
 
         <NavHandler />
       </Layout>
       <BottomNav />
+
+      <ToastContainer
+        toastClassName={() =>
+          "relative flex rounded-[20px] select-none [@media(pointer:coarse)]:rounded-[0px] shadow h-[50px] p-1 justify-between overflow-hidden cursor-pointer bg-[#f6f6f8] text-[#2c2c2c] dark:bg-[#141414] dark:text-white"
+        }
+      />
     </>
   );
 }

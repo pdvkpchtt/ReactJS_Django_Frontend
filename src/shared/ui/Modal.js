@@ -15,17 +15,17 @@ const Modal = ({
   };
   const containerVariant = {
     initial: fadeAnim
-      ? { scale: 0.7, translateX: "-50%", top: "86px" }
+      ? { scale: 0.7, translateX: "-50%", top: "78px" }
       : { top: "100%", transition: { type: "spring" } },
     isOpen: fadeAnim
       ? {
           scale: 1,
           translateX: "-50%",
-          top: "86px",
+          top: "78px",
         }
-      : { top: "86px" },
+      : { top: "78px" },
     exit: fadeAnim
-      ? { scale: 0.7, translateX: "-50%", top: "86px" }
+      ? { scale: 0.7, translateX: "-50%", top: "78px" }
       : { top: slideToTop ? "-100%" : "100%" },
   };
 

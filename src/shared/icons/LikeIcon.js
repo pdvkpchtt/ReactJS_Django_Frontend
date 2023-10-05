@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LikeIcon = ({ onClick = () => {} }) => {
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+
   const [activeState, setActiveState] = useState(false);
 
   return (
@@ -10,7 +15,21 @@ const LikeIcon = ({ onClick = () => {} }) => {
       height="24"
       viewBox="0 0 48 48"
       className="cursor-pointer"
-      onClick={() => setActiveState(!activeState)}
+      onClick={() => {
+        if (!activeState)
+          toast(`Вы оценили запись`, {
+            position: isMobile ? "top-center" : "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            // theme: "dark",
+            progressStyle: { background: "#79a7d3" },
+          });
+        setActiveState(!activeState);
+      }}
     >
       <path
         className={`${

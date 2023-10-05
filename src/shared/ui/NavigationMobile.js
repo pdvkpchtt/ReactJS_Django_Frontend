@@ -14,7 +14,7 @@ const NavigationMobile = ({ useState, navState, layoutId = "", top = 0 }) => {
   return (
     <LayoutGroup id={layoutId}>
       <div
-        className={`w-full [@media(hover)]:hidden h-[38px] transition duration-[250ms] whitespace-nowrap left-0 z-50 bg-white dark:bg-[#212122] fixed `}
+        className={`w-full [@media(hover)]:hidden h-[38px] transition duration-[250ms] whitespace-nowrap left-0 z-[9] bg-white dark:bg-[#212122] fixed `}
         style={{
           top: top,
         }}
