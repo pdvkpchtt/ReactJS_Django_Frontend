@@ -78,7 +78,14 @@ const EditModal = ({ data, state, setstate }) => {
             onChange={(e) => birthDateHandler(e)}
             maxLength={10}
           />
-          <Button loader text="Сохранить" styles="mt-[12px]" />
+          <Button
+            loader
+            text="Сохранить"
+            styles="mt-[12px]"
+            onClick={() => {
+              setstate(false);
+            }}
+          />
           {/* body */}
         </div>
       </Modal>
@@ -123,7 +130,14 @@ const EditModal = ({ data, state, setstate }) => {
               onChange={(e) => birthDateHandler(e)}
               maxLength={10}
             />
-            <Button loader text="Сохранить" styles="my-[12px]" />
+            <Button
+              loader
+              text="Сохранить"
+              styles="my-[12px]"
+              onClick={() => {
+                setstate(false);
+              }}
+            />
           </div>
           {/* body */}
         </div>

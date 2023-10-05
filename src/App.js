@@ -13,7 +13,7 @@ function App() {
   // ]);
 
   return (
-    <div className="bg-[#f6f6f8] dark:bg-[#141414] transition duration-[250ms]">
+    <>
       <Header />
       <Layout>
         <div className="[@media(hover)]:hidden fixed bottom-[83px] right-[20px]">
@@ -23,7 +23,7 @@ function App() {
         <NavHandler />
       </Layout>
       <BottomNav />
-    </div>
+    </>
   );
 }
 

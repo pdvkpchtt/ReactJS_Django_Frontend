@@ -8,6 +8,19 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+html {
+  background: #f6f6f8;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+
+html.dark {
+  background: #141414;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }

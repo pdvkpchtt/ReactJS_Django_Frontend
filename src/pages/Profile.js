@@ -16,7 +16,7 @@ const Profile = () => {
   const [navState, setNavState] = useState([
     { id: 0, active: true, name: "Профиль" },
     { id: 1, active: false, name: "Посты" },
-    { id: 2, active: false, name: "Оценено" },
+    { id: 2, active: false, name: "Вы поделились" },
   ]);
 
   return (
