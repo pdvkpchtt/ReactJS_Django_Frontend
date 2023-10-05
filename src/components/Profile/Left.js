@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
@@ -12,9 +11,6 @@ import SettingsIcon from "../../shared/icons/SettingsIcon";
 
 const Left = ({ data }) => {
   const [modalState, setModalState] = useState(false);
-
-  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const { height, width } = useWindowDimensions();
 
   return (
     <>
@@ -31,7 +27,7 @@ const Left = ({ data }) => {
             styles="font-medium text-[16px] leading-[16px] tracking-[-0.015em]"
           />
           <TextSecondary
-            text={`${data.age} y.o.`}
+            text={`${data.location}`}
             styles="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
           />
           <TextSecondary
@@ -51,7 +47,7 @@ const Left = ({ data }) => {
       </Card>
 
       {/* modal */}
-      <EditModal state={modalState} setstate={setModalState} />
+      <EditModal data={data} state={modalState} setstate={setModalState} />
       {/* modal */}
     </>
   );

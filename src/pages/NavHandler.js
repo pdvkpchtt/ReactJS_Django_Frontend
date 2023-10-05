@@ -1,14 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
 import ErrorPage from "./ErrorPage";
-import OthersProfile from "./OthersProfile";
+import Feed from "./Feed";
 import Profile from "./Profile";
+import OthersProfile from "./OthersProfile";
 
 const NavHandler = () => {
   return (
     <Routes>
       <Route path="/" element={<div>home</div>} />
-      <Route path="/feed" element={<div>feed</div>} />
+      <Route path="/feed" element={<Feed />} />
       <Route path="/users" element={<div>users</div>} />
       <Route path="/profile">
         <Route path="" element={<Profile />} />

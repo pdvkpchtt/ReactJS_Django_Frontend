@@ -4,13 +4,11 @@
 
 body {
   -webkit-tap-highlight-color: transparent; /* remove blue bg on click */
-}
-
-.hideScrollbarNav {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-.hideScrollbarNav::-webkit-scrollbar {
+
+body::-webkit-scrollbar {
   display: none;
 }
 
@@ -24,5 +22,23 @@ body {
     background-clip: padding-box;
     border-radius: 9999px;
     background-color: #8f8f8f;
+  }
+}
+
+.hideScrollbarNav {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hideScrollbarNav::-webkit-scrollbar {
+  display: none;
+}
+
+@media (hover: hover) {
+  .hideScrollbarNavMobile {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .hideScrollbarNavMobile::-webkit-scrollbar {
+    display: none;
   }
 }

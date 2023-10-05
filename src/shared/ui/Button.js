@@ -17,7 +17,7 @@ const Button = ({
 
   return (
     <button
-      className={`${styles} font-medium outline-none [@media(pointer:coarse)]:rounded-[20px] rounded-[16px] h-[43px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center cursor-pointer transition duration-[250ms] bg-[#79a7d3] hover:bg-[#397fbf] active:bg-[#1a5c99]`}
+      className={`${styles} font-medium outline-none py-[11px] [@media(pointer:coarse)]:rounded-[20px] rounded-[16px] h-[42px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center cursor-pointer transition duration-[250ms] bg-[#79a7d3] hover:bg-[#397fbf] active:bg-[#1a5c99]`}
       onClick={() => clickHandler()}
     >
       {!loaderState ? (
