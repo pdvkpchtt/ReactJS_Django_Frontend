@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import BottomNav from "./components/BottomNav";
@@ -7,6 +8,8 @@ import NavHandler from "./pages/NavHandler";
 import ThemeHandler from "./shared/ui/ThemeHandler";
 
 function App() {
+  const { pathname } = useLocation();
+
   return (
     <>
       <Header />
@@ -17,7 +20,8 @@ function App() {
 
         <NavHandler />
       </Layout>
-      <BottomNav />
+
+      {pathname !== "/auth" && <BottomNav />}
 
       <ToastContainer
         toastClassName={() =>

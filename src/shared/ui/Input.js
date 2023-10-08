@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 
 import TextSecondary from "../text/TextSecondary";
 
@@ -17,19 +18,41 @@ export const Input = ({
 }) => {
   return (
     <div className="flex flex-col min-w-[20px] w-full">
-      {label && (
-        <TextSecondary
-          text={label}
-          styles="font-medium text-[14px] leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-        />
-      )}
+      <div className="flex flex-row justify-between">
+        {label && (
+          <TextSecondary
+            text={label}
+            styles="font-medium ml-[4px] select-none text-[14px] leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+        )}
+
+        {maxLength ? (
+          <div className="w-[16px] h-[16px] mr-[4px]">
+            <CircularProggressBar
+              progress={value.length}
+              maxWal={maxLength}
+              trackColor={
+                value.length === 0
+                  ? "stroke-[#f6f6f8] dark:stroke-[#2c2c2c]"
+                  : "stroke-[#79a7d35b] dark:stroke-[#79a7d35b]"
+              }
+              indicatorColor={
+                value.length === 0 ? "stroke-[#f6f6f8]" : "stroke-[#79a7d3]"
+              }
+              trackWidth={2.67}
+              indicatorWidth={2.67}
+              size={18}
+            />
+          </div>
+        ) : null}
+      </div>
 
       <input
         name={name}
         placeholder={placeholder || ""}
-        value={value ? value : null}
+        value={value ? value : ""}
         autoComplete
-        className="px-[12px] bg-[#f6f6f8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
+        className="px-[12px] bg-[#f6f6f8] placeholder:select-none dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
         style={{
           borderRadius: rounded,
         }}

@@ -88,7 +88,7 @@ const CreatePostModal = ({
               textState.length === 0 || headState.length === 0
                 ? "bg-[#141414] cursor-not-allowed"
                 : " hover:bg-[#397fbf] active:bg-[#1a5c99] bg-[#79a7d3] cursor-pointer"
-            } rounded-full px-[12px] text-[#fff] py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
+            } rounded-full px-[12px] text-[#fff] select-none py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
             onClick={
               textState.length > 0 && headState.length > 0
                 ? () => {
@@ -145,7 +145,7 @@ const CreatePostModal = ({
                 textState.length === 0 || headState.length === 0
                   ? "bg-[#141414] cursor-not-allowed"
                   : " hover:bg-[#397fbf] active:bg-[#1a5c99] bg-[#79a7d3] cursor-pointer"
-              } rounded-full px-[12px] text-[#fff] py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
+              } rounded-full px-[12px] select-none text-[#fff] py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
               onClick={
                 textState.length > 0 && headState.length > 0
                   ? async () => {

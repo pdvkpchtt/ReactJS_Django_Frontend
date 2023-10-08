@@ -5,6 +5,7 @@ import Feed from "./Feed";
 import Profile from "./Profile";
 import OthersProfile from "./OthersProfile";
 import Search from "./Search";
+import Auth from "./Auth";
 
 const NavHandler = () => {
   return (
@@ -12,6 +13,7 @@ const NavHandler = () => {
       <Route path="/" element={<div>home</div>} />
       <Route path="/feed" element={<Feed />} />
       <Route path="/users" element={<Search />} />
+      <Route path="/auth" element={<Auth />} />
       <Route path="/profile">
         <Route path="" element={<Profile />} />
         <Route path=":id" element={<OthersProfile />} />
