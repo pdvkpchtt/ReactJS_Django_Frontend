@@ -81,7 +81,43 @@ const Auth = () => {
           styles="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
         />
 
-        <Button text="Вход" styles="w-full" />
+        <Button
+          text="Вход"
+          styles="w-full"
+          onClick={() => {
+            if (!loginState.length > 0 || !passwordState.length > 0) {
+              setInvalid("Все поля обязательны");
+              return;
+            }
+
+            const vals = { username: loginState, password: passwordState };
+
+            setPasswordState("");
+            setLoginState("");
+            setInvalid(null);
+
+            fetch(`${process.env.REACT_APP_FETCH_URL}/auth/login`, {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(vals),
+            })
+              .catch((err) => {
+                return;
+              })
+              .then((res) => {
+                if (!res || !res.ok || res.status >= 400) return;
+                return res.json();
+              })
+              .then((data) => {
+                if (!data) return;
+                if (data.status) setInvalid(data.status);
+                else if (data.loggedIn) navigate("/feed");
+              });
+          }}
+        />
       </Card>
     </div>
   );
