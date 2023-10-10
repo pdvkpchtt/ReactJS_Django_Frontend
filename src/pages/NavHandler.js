@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import ErrorPage from "./ErrorPage";
@@ -6,9 +7,17 @@ import Profile from "./Profile";
 import OthersProfile from "./OthersProfile";
 import Search from "./Search";
 import Auth from "./Auth";
+import { AccountContext } from "../components/AccountContext";
+import CustomLoader from "../shared/ui/CustomLoader";
 
 const NavHandler = () => {
-  return (
+  const { user } = useContext(AccountContext);
+
+  return user.loggedIn === null ? (
+    <div className="h-[100vh] w-full flex justify-center items-center">
+      <CustomLoader />
+    </div>
+  ) : (
     <Routes>
       <Route path="/" element={<div>home</div>} />
       <Route path="/feed" element={<Feed />} />

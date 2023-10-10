@@ -23,6 +23,7 @@ const FeedNav = ({ navState, setNavState }) => {
         <Card styles="h-fit flex flex-col gap-[12px]">
           {navState.map((item, key) => (
             <div
+              key={key}
               className={` ${
                 item.active
                   ? "bg-[#79a7d3] text-[#fff] hover:bg-[#397fbf] active:bg-[#1a5c99]"

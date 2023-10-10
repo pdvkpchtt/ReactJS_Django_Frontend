@@ -42,7 +42,7 @@ const posts = [
 
 const Feed = () => {
   const [selectedId, setSelectedId] = useState(null);
-  console.log(selectedId);
+
   const [navState, setNavState] = useState([
     { id: 0, active: true, name: "Лента" },
     { id: 1, active: false, name: "Новости" },

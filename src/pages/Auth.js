@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 import Card from "../shared/ui/Card";
 import { Input } from "../shared/ui/Input";
 import Button from "../shared/ui/Button";
 import TextSecondary from "../shared/text/TextSecondary";
+import { AccountContext } from "../components/AccountContext";
 
 const Auth = () => {
+  const { setUser } = useContext(AccountContext);
+
   const navigate = useNavigate();
 
   const [loginState, setLoginState] = useState("");
@@ -33,6 +36,7 @@ const Auth = () => {
           value={passwordState}
           onChange={(value) => setPasswordState(value)}
           label="Ваш пароль"
+          type="password"
           placeholder="Введите пароль..."
           password
           maxLength={25}
@@ -53,7 +57,7 @@ const Auth = () => {
             setLoginState("");
             setInvalid(null);
 
-            fetch(`${process.env.REACT_APP_FETCH_URL}/auth/register`, {
+            fetch(`http://localhost:8000/auth/register`, {
               method: "POST",
               credentials: "include",
               headers: {
@@ -70,6 +74,7 @@ const Auth = () => {
               })
               .then((data) => {
                 if (!data) return;
+                setUser({ ...data });
                 if (data.status) setInvalid(data.status);
                 else if (data.loggedIn) navigate("/feed");
               });
@@ -96,7 +101,7 @@ const Auth = () => {
             setLoginState("");
             setInvalid(null);
 
-            fetch(`${process.env.REACT_APP_FETCH_URL}/auth/login`, {
+            fetch(`http://localhost:8000/auth/login`, {
               method: "POST",
               credentials: "include",
               headers: {
@@ -113,6 +118,7 @@ const Auth = () => {
               })
               .then((data) => {
                 if (!data) return;
+                setUser({ ...data });
                 if (data.status) setInvalid(data.status);
                 else if (data.loggedIn) navigate("/feed");
               });

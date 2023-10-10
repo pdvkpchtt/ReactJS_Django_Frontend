@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
@@ -6,10 +6,12 @@ import TextMain from "../../shared/text/TextMain";
 import TextSecondary from "../../shared/text/TextSecondary";
 import { ButtonGhost } from "../../shared/ui/Button";
 import EditModal from "../../components/Profile/EditModal";
+import { AccountContext } from "../AccountContext";
 
 import SettingsIcon from "../../shared/icons/SettingsIcon";
 
 const Left = ({ data }) => {
+  const { user } = useContext(AccountContext);
   const [modalState, setModalState] = useState(false);
 
   return (
