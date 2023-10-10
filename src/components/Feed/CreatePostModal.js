@@ -1,16 +1,18 @@
 "use client";
 
 import TextareaAutosize from "react-textarea-autosize";
-import { useState, useRef, useEffect } from "react";
-import { Oval } from "react-loader-spinner";
+import { useState, useRef, useEffect, useContext } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import Modal from "../../shared/ui/Modal";
 import PostDropDown from "../../shared/ui/PostDropDown";
 import MobileModal from "../../shared/ui/MobileModal";
+import TextMain from "../../shared/text/TextMain";
+import createPost from "../../server/feed/createPost";
+import { AccountContext } from "../AccountContext";
+import getCategories from "../../server/feed/getCategories";
 
 import CrossIcon from "../../shared/icons/CrossIcon";
-import TextMain from "../../shared/text/TextMain";
 
 const CreatePostModal = ({
   open = false,
@@ -18,22 +20,31 @@ const CreatePostModal = ({
   headerMax = 120,
   textMax = 500,
 }) => {
+  const { user } = useContext(AccountContext);
+
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+  const [dropDownState, setDropDownState] = useState({ id: 3, name: "Лента" });
+  const [categories, setCategories] = useState([]);
 
-  const [dropDownState, setDropDownState] = useState({ name: "Лента" });
   const [headState, setHeadState] = useState("");
   const [textState, setTextState] = useState("");
 
-  const [loaderState, setLoaderState] = useState(false);
+  const getCateforiesHandle = async () => {
+    const data = await getCategories();
+    setCategories(data.data);
+  };
+
+  useEffect(() => {
+    getCateforiesHandle();
+  }, []);
+
   const [slideToTopState, setSlideToTop] = useState(false);
 
-  const categories = [
-    { name: "Лента" },
-    { name: "Новости" },
-    { name: "Валюта" },
-  ];
+  const createPostHandler = async () => {
+    await createPost(user.userId, { dropDownState, textState, headState });
+  };
 
   useEffect(() => {
     if (isMobile) {
@@ -86,40 +97,24 @@ const CreatePostModal = ({
           <div
             className={`${
               textState.length === 0 || headState.length === 0
-                ? "bg-[#141414] cursor-not-allowed"
+                ? "bg-[#f6f6f8] dark:bg-[#141414] cursor-not-allowed"
                 : " hover:bg-[#397fbf] active:bg-[#1a5c99] bg-[#79a7d3] cursor-pointer"
             } rounded-full px-[12px] text-[#fff] select-none py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
             onClick={
               textState.length > 0 && headState.length > 0
                 ? () => {
                     setSlideToTop(true);
-                    setLoaderState(true);
+                    createPostHandler();
                     setHeadState("");
                     setTextState("");
-                    setDropDownState({ name: "Лента" });
-                    setLoaderState(false);
+                    setDropDownState({ id: 3, name: "Лента" });
                     setClose();
                     setSlideToTop(false);
                   }
                 : () => {}
             }
           >
-            {loaderState ? (
-              <Oval
-                height={19}
-                width={19}
-                color="rgba(255, 255, 255, 1)"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-                ariaLabel="oval-loading"
-                secondaryColor="rgba(255, 255, 255, 0.3)"
-                strokeWidth={6}
-                strokeWidthSecondary={6}
-              />
-            ) : (
-              "Опубликовать"
-            )}
+            Опубликовать
           </div>
         </div>
         {/* bottom */}
@@ -143,18 +138,17 @@ const CreatePostModal = ({
             <div
               className={`${
                 textState.length === 0 || headState.length === 0
-                  ? "bg-[#141414] cursor-not-allowed"
+                  ? "bg-[#f6f6f8] dark:bg-[#141414] cursor-not-allowed"
                   : " hover:bg-[#397fbf] active:bg-[#1a5c99] bg-[#79a7d3] cursor-pointer"
               } rounded-full px-[12px] select-none text-[#fff] py-[3px] text-medium transition duration-[250ms] flex justify-center items-center`}
               onClick={
                 textState.length > 0 && headState.length > 0
                   ? async () => {
                       setSlideToTop(true);
-                      setLoaderState(true);
+                      createPostHandler();
                       setHeadState("");
                       setTextState("");
-                      setDropDownState({ name: "Лента" });
-                      setLoaderState(false);
+                      setDropDownState({ id: 3, name: "Лента" });
                       setClose();
 
                       setSlideToTop(false);

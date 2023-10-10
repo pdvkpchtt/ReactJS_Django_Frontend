@@ -55,11 +55,11 @@ const PostDropDown = ({
         onClick={() => setOpenState(!openState)}
       >
         {choiseState.name === "" ? (
-          <p className="font-normal text-[14px] select-none leading-[17px] tracking-[-0.011375em] transition duration-[250ms] text-[#5875e8] group-hover:text-[#3A56C5] group-active:text-[#2C429C]">
+          <p className="font-normal text-[14px] select-none leading-[17px] tracking-[-0.011375em] transition duration-[250ms] text-[#79a7d3] group-hover:text-[#397fbf] group-active:text-[#1a5c99]">
             {choise}
           </p>
         ) : (
-          <p className="font-normal text-[14px] select-none leading-[17px] tracking-[-0.011375em] transition duration-[250ms] text-[#5875e8] group-hover:text-[#3A56C5] group-active:text-[#2C429C]">
+          <p className="font-normal text-[14px] select-none leading-[17px] tracking-[-0.011375em] transition duration-[250ms] text-[#79a7d3] group-hover:text-[#397fbf] group-active:text-[#1a5c99]">
             {choiseState.name}
           </p>
         )}

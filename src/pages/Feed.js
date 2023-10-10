@@ -1,6 +1,8 @@
 import { LayoutGroup } from "framer-motion";
 import { useState } from "react";
+import { Waypoint } from "react-waypoint";
 
+import CustomLoader from "../shared/ui/CustomLoader";
 import FeedNav from "../components/Feed/FeedNav";
 import NavigationMobile from "../shared/ui/NavigationMobile";
 import Post from "../components/Feed/Post";
@@ -73,6 +75,17 @@ const Feed = () => {
               setSelectedId={setSelectedId}
             />
           ))}
+          <Waypoint
+            onEnter={async () => {
+              console.log("Enter waypoint");
+              // await getPosts(cursor);
+            }}
+            topOffset="50px"
+          >
+            <div className="w-full flex  justify-center items-center h-full">
+              <CustomLoader diameter={36} />
+            </div>
+          </Waypoint>
         </div>
       </LayoutGroup>
 
