@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
@@ -6,11 +8,25 @@ import TextMain from "../../shared/text/TextMain";
 import TextSecondary from "../../shared/text/TextSecondary";
 import { ButtonGhost } from "../../shared/ui/Button";
 import EditModal from "../../components/Profile/EditModal";
+import logOut from "../../server/profile/logOut";
 
 import SettingsIcon from "../../shared/icons/SettingsIcon";
+import LogOutIcon from "../../shared/icons/LogOutIcon";
 
-const Left = ({ data }) => {
+const Left = ({ data, getUserInfo }) => {
+  const navigate = useNavigate();
   const [modalState, setModalState] = useState(false);
+
+  const logOutHadle = async () => {
+    navigate(0);
+    await logOut();
+  };
+
+  useEffect(() => {
+    if (modalState === false && getUserInfo) getUserInfo();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalState]);
 
   return (
     <>
@@ -49,6 +65,12 @@ const Left = ({ data }) => {
           onClick={() => setModalState(true)}
         >
           <SettingsIcon />
+        </ButtonGhost>
+      </Card>
+
+      <Card>
+        <ButtonGhost text="Выход" onClick={() => logOutHadle()}>
+          <LogOutIcon />
         </ButtonGhost>
       </Card>
 

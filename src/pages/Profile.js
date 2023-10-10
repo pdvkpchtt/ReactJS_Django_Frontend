@@ -25,6 +25,7 @@ const Profile = () => {
 
   useEffect(() => {
     getUserInfo();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,7 +52,7 @@ const Profile = () => {
           [@media(hover)]:fixed [@media(hover)]:top-[78px]  
           [@media(pointer:coarse)]:mt-[38px] [@media(pointer:coarse)]:overflow-y-auto [@media(pointer:coarse)]:mb-[62px] [@media(pointer:coarse)]:p-[12px]`}
         >
-          <Left data={userInfo.user} />
+          <Left getUserInfo={getUserInfo} data={userInfo.user} />
         </div>
 
         <div

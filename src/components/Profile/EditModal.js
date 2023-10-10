@@ -1,17 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import Modal from "../../shared/ui/Modal";
 import MobileModal from "../../shared/ui/MobileModal";
 import { Input } from "../../shared/ui/Input";
+import Button from "../../shared/ui/Button";
+import editProfile from "../../server/profile/editProfile";
 
 import CrossIcon from "../../shared/icons/CrossIcon";
-import Button from "../../shared/ui/Button";
+import { AccountContext } from "../AccountContext";
 
 const EditModal = ({ data, state, setstate }) => {
+  const { user } = useContext(AccountContext);
+
   const [name, setName] = useState(data.name || "");
   const [about, setAbout] = useState(data.about || "");
   const [location, setLocation] = useState(data.location || "");
   const [birthValue, setBirthValue] = useState(data.birth || "");
+
+  const submitEdit = (data) => {
+    setTimeout(async () => {
+      await editProfile(data, user.userId);
+      setstate(false);
+    }, [500]);
+  };
 
   const birthDateHandler = (e) => {
     if (
@@ -81,7 +92,7 @@ const EditModal = ({ data, state, setstate }) => {
             text="Сохранить"
             styles="mt-[12px]"
             onClick={() => {
-              setstate(false);
+              submitEdit({ name, about, location, birth: birthValue });
             }}
           />
           {/* body */}
@@ -133,7 +144,7 @@ const EditModal = ({ data, state, setstate }) => {
               text="Сохранить"
               styles="my-[12px]"
               onClick={() => {
-                setstate(false);
+                submitEdit({ name, about, location, birth: birthValue });
               }}
             />
           </div>

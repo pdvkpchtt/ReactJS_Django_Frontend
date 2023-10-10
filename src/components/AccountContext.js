@@ -40,6 +40,8 @@ const AccountContextWrap = ({ children }) => {
 
   if (pathname !== "/auth" && user.loggedIn === false) navigate("/auth");
 
+  if (pathname === "/") navigate("/feed");
+
   return (
     <AccountContext.Provider value={{ user, setUser }}>
       {children}
