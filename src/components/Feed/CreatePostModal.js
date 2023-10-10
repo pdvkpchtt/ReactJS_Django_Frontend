@@ -2,6 +2,7 @@
 
 import TextareaAutosize from "react-textarea-autosize";
 import { useState, useRef, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import Modal from "../../shared/ui/Modal";
@@ -21,6 +22,7 @@ const CreatePostModal = ({
   textMax = 500,
 }) => {
   const { user } = useContext(AccountContext);
+  const navigate = useNavigate();
 
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
@@ -43,6 +45,7 @@ const CreatePostModal = ({
   const [slideToTopState, setSlideToTop] = useState(false);
 
   const createPostHandler = async () => {
+    navigate(0);
     await createPost(user.userId, { dropDownState, textState, headState });
   };
 

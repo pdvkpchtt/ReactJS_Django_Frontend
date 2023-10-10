@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { LayoutGroup } from "framer-motion";
 import { useState } from "react";
 import { Waypoint } from "react-waypoint";
@@ -6,41 +7,7 @@ import CustomLoader from "../shared/ui/CustomLoader";
 import FeedNav from "../components/Feed/FeedNav";
 import NavigationMobile from "../shared/ui/NavigationMobile";
 import Post from "../components/Feed/Post";
-
-const posts = [
-  {
-    id: 1,
-    name: "Danil Kabirov",
-    title: "Post title 2 dajjdsaklk sdsdd",
-    text: "Post text post text text post text post text post text post textpost text post text text post text text post text text post text",
-    createdAt: "8 часов назад",
-    likes: 3,
-  },
-  {
-    id: 2,
-    name: "Danil Kabirov",
-    title: "Post title 2 dajjdsaklk sdsdd",
-    text: "Post text post text text post text post text post text post textpost text post text text post text text post text text post text",
-    createdAt: "8 часов назад",
-    likes: 3,
-  },
-  {
-    id: 3,
-    name: "Someone",
-    title: "Sad adasd dajjdsaklk sdsdd",
-    text: "Post text post text text post text post text post text post textpost text post text text post text text post text text post text",
-    createdAt: "9 часов назад",
-    likes: 3,
-  },
-  {
-    id: 4,
-    name: "Someone",
-    title: "Sad adasd dajjdsaklk sdsdd",
-    text: "Post text post text text post text post text post text post textpost text post text text post text text post text text post text",
-    createdAt: "9 часов назад",
-    likes: 3,
-  },
-];
+import getPosts from "../server/feed/getPosts";
 
 const Feed = () => {
   const [selectedId, setSelectedId] = useState(null);
@@ -50,6 +17,25 @@ const Feed = () => {
     { id: 1, active: false, name: "Новости" },
     { id: 2, active: false, name: "Валюта" },
   ]);
+
+  const [offset, setOffset] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [posts, setPosts] = useState([]);
+
+  const getPostsHandle = () => {
+    setTimeout(async () => {
+      const data = await getPosts(offset);
+      setPosts([...posts, ...data.data]);
+      if (data.data.length !== 0) setOffset(offset + 8);
+      else setHasNextPage(false);
+    }, [1000]);
+  };
+
+  useEffect(() => {
+    getPostsHandle();
+    setOffset(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -75,17 +61,19 @@ const Feed = () => {
               setSelectedId={setSelectedId}
             />
           ))}
-          <Waypoint
-            onEnter={async () => {
-              console.log("Enter waypoint");
-              // await getPosts(cursor);
-            }}
-            topOffset="50px"
-          >
-            <div className="w-full flex  justify-center items-center h-full">
-              <CustomLoader diameter={36} />
-            </div>
-          </Waypoint>
+          {hasNextPage && (
+            <Waypoint
+              onEnter={async () => {
+                console.log("Enter waypoint");
+                getPostsHandle(offset);
+              }}
+              topOffset="50px"
+            >
+              <div className="w-full flex  justify-center items-center h-full">
+                <CustomLoader diameter={36} />
+              </div>
+            </Waypoint>
+          )}
         </div>
       </LayoutGroup>
 

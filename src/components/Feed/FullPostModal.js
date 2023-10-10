@@ -8,6 +8,14 @@ import LikeIcon from "../../shared/icons/LikeIcon";
 import RepostIcon from "../../shared/icons/RepostIcon";
 import CrossIcon from "../../shared/icons/CrossIcon";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+require("dayjs/locale/ru");
+dayjs.locale("ru");
+var updateLocale = require("dayjs/plugin/updateLocale");
+dayjs.extend(updateLocale);
+
 const modalVariant = {
   initial: { opacity: 0 },
   isOpen: { opacity: 1 },
@@ -31,21 +39,20 @@ const FullPostModal = ({ item, setClose = () => {}, selectedId }) => {
           <EmptyAvatar little />
 
           {/* name date avatar */}
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[12px] w-full">
             <div className="flex flex-col gap-[8px]">
               <TextMain
                 text={item.name}
                 styles="truncate leading-[14px] font-medium"
               />
               <TextSecondary
-                text={item.createdAt}
+                text={dayjs().to(item.createdAt)}
                 styles="truncate leading-[13px] select-none text-[13px] font-medium"
               />
             </div>
             {/* name date avatar */}
 
             {/* body */}
-
             <TextMain
               text={item.title}
               styles="text-[20px] font-medium leading-[20px] tracking-[-0.025em] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.014625em]"

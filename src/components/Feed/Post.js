@@ -13,6 +13,14 @@ import LikeIcon from "../../shared/icons/LikeIcon";
 import RepostIcon from "../../shared/icons/RepostIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+require("dayjs/locale/ru");
+dayjs.locale("ru");
+var updateLocale = require("dayjs/plugin/updateLocale");
+dayjs.extend(updateLocale);
+
 const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -36,7 +44,7 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                   styles="truncate leading-[14px] font-medium"
                 />
                 <TextSecondary
-                  text={item.createdAt}
+                  text={dayjs().to(item.createdAt)}
                   styles="truncate leading-[13px] select-none text-[13px] font-medium"
                 />
               </div>
