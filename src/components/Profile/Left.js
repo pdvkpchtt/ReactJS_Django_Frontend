@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
@@ -6,12 +6,10 @@ import TextMain from "../../shared/text/TextMain";
 import TextSecondary from "../../shared/text/TextSecondary";
 import { ButtonGhost } from "../../shared/ui/Button";
 import EditModal from "../../components/Profile/EditModal";
-import { AccountContext } from "../AccountContext";
 
 import SettingsIcon from "../../shared/icons/SettingsIcon";
 
 const Left = ({ data }) => {
-  const { user } = useContext(AccountContext);
   const [modalState, setModalState] = useState(false);
 
   return (
@@ -24,18 +22,24 @@ const Left = ({ data }) => {
             text={data.name}
             styles="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
           />
-          <TextSecondary
-            text={`${data.about}`}
-            styles="font-medium text-[16px] leading-[16px] tracking-[-0.015em]"
-          />
-          <TextSecondary
-            text={`${data.location}`}
-            styles="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
-          />
-          <TextSecondary
-            text={`${data.birth}`}
-            styles="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
-          />
+          {data.about && (
+            <TextSecondary
+              text={`${data.about}`}
+              styles="font-medium text-[16px] leading-[16px] tracking-[-0.015em]"
+            />
+          )}
+          {data.location && (
+            <TextSecondary
+              text={`${data.location}`}
+              styles="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
+            />
+          )}
+          {data.birth && (
+            <TextSecondary
+              text={`${data.birth}`}
+              styles="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
+            />
+          )}
         </div>
       </Card>
 

@@ -9,7 +9,6 @@ import { AccountContext } from "../components/AccountContext";
 
 const Auth = () => {
   const { setUser } = useContext(AccountContext);
-
   const navigate = useNavigate();
 
   const [loginState, setLoginState] = useState("");
@@ -76,7 +75,6 @@ const Auth = () => {
                 if (!data) return;
                 setUser({ ...data });
                 if (data.status) setInvalid(data.status);
-                else if (data.loggedIn) navigate("/feed");
               });
           }}
         />

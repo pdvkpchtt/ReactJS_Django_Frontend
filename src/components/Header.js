@@ -11,7 +11,6 @@ import { AccountContext } from "./AccountContext";
 
 const Header = () => {
   const { user } = useContext(AccountContext);
-  console.log(user);
 
   return (
     <header className="w-full fixed h-[62px] [@media(pointer:coarse)]:hidden z-[50] transition duration-[250ms] bg-white dark:bg-[#212122] border-b-[0.7px] border-b-[#e7e7e7] dark:border-b-[#282828]">

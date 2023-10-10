@@ -1,23 +1,39 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { AccountContext } from "../components/AccountContext";
 import Left from "../components/Profile/Left";
 import Right from "../components/Profile/Right";
+import getUserById from "../server/profile/getUserById";
+import CustomLoader from "../shared/ui/CustomLoader";
 import NavigationMobile from "../shared/ui/NavigationMobile";
 import NavigationPc from "../shared/ui/NavigationPc";
 
-const proflieData = {
-  name: "Danil Kabirov",
-  about: "Designer from SanFrancisco",
-  birth: "14.01.2000",
-  location: "Ufa",
-};
-
 const Profile = () => {
+  const { user } = useContext(AccountContext);
+
   const [navState, setNavState] = useState([
     { id: 0, active: true, name: "Профиль" },
     { id: 1, active: false, name: "Посты" },
     { id: 2, active: false, name: "Вы поделились" },
   ]);
+
+  const [userInfo, setUserInfo] = useState({});
+
+  const getUserInfo = async () => {
+    setUserInfo(await getUserById(user.userId));
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!userInfo.user)
+    return (
+      <div className="h-[100vh] w-full flex justify-center items-center">
+        <CustomLoader />
+      </div>
+    );
 
   return (
     <>
@@ -35,7 +51,7 @@ const Profile = () => {
           [@media(hover)]:fixed [@media(hover)]:top-[78px]  
           [@media(pointer:coarse)]:mt-[38px] [@media(pointer:coarse)]:overflow-y-auto [@media(pointer:coarse)]:mb-[62px] [@media(pointer:coarse)]:p-[12px]`}
         >
-          <Left data={proflieData} />
+          <Left data={userInfo.user} />
         </div>
 
         <div
@@ -54,7 +70,7 @@ const Profile = () => {
           <Right
             navState={navState}
             setNavState={setNavState}
-            data={proflieData}
+            data={userInfo.user}
           />
         </div>
       </div>

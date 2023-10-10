@@ -36,8 +36,6 @@ const EditModal = ({ data, state, setstate }) => {
     }
   };
 
-  useEffect(() => {}, [birthValue]);
-
   return (
     <>
       {/* pc */}
