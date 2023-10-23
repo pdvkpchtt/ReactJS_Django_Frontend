@@ -5,18 +5,11 @@ import { Waypoint } from "react-waypoint";
 
 import CustomLoader from "../shared/ui/CustomLoader";
 import FeedNav from "../components/Feed/FeedNav";
-import NavigationMobile from "../shared/ui/NavigationMobile";
 import Post from "../components/Feed/Post";
 import getPosts from "../server/feed/getPosts";
 
 const Feed = () => {
   const [selectedId, setSelectedId] = useState(null);
-
-  const [navState, setNavState] = useState([
-    { id: 0, active: true, name: "Лента" },
-    { id: 1, active: false, name: "Новости" },
-    { id: 2, active: false, name: "Валюта" },
-  ]);
 
   const [offset, setOffset] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -45,12 +38,6 @@ const Feed = () => {
         [@media(hover)]:mt-[62px] [@media(hover)]:gap-[16px] [@media(hover)]:flex [@media(hover)]:flex-row
       "
     >
-      <NavigationMobile
-        navState={navState}
-        useState={setNavState}
-        layoutId="feed mobile"
-      />
-
       <LayoutGroup>
         <div className="w-full flex flex-col gap-[12px] [@media(hover)]:mr-[278px]">
           {posts.map((item, key) => (
@@ -67,7 +54,7 @@ const Feed = () => {
                 console.log("Enter waypoint");
                 getPostsHandle(offset);
               }}
-              topOffset="50px"
+              topOffset="0px"
             >
               <div className="w-full flex  justify-center items-center h-full">
                 <CustomLoader diameter={36} />
@@ -77,7 +64,7 @@ const Feed = () => {
         </div>
       </LayoutGroup>
 
-      <FeedNav navState={navState} setNavState={setNavState} />
+      <FeedNav />
     </div>
   );
 };

@@ -6,12 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import Modal from "../../shared/ui/Modal";
-import PostDropDown from "../../shared/ui/PostDropDown";
 import MobileModal from "../../shared/ui/MobileModal";
 import TextMain from "../../shared/text/TextMain";
 import createPost from "../../server/feed/createPost";
 import { AccountContext } from "../AccountContext";
-import getCategories from "../../server/feed/getCategories";
 
 import CrossIcon from "../../shared/icons/CrossIcon";
 
@@ -27,26 +25,15 @@ const CreatePostModal = ({
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const [dropDownState, setDropDownState] = useState({ id: 3, name: "Лента" });
-  const [categories, setCategories] = useState([]);
 
   const [headState, setHeadState] = useState("");
   const [textState, setTextState] = useState("");
-
-  const getCateforiesHandle = async () => {
-    const data = await getCategories();
-    setCategories(data.data);
-  };
-
-  useEffect(() => {
-    getCateforiesHandle();
-  }, []);
 
   const [slideToTopState, setSlideToTop] = useState(false);
 
   const createPostHandler = async () => {
     navigate(0);
-    await createPost(user.userId, { dropDownState, textState, headState });
+    await createPost(user.userId, { textState, headState });
   };
 
   useEffect(() => {
@@ -60,12 +47,7 @@ const CreatePostModal = ({
     <>
       <Modal isOpen={open} slideToTop={slideToTopState}>
         {/* header */}
-        <div className="flex flex-row justify-between">
-          <PostDropDown
-            choise={dropDownState}
-            items={categories}
-            handleSetChoise={(val) => setDropDownState(val)}
-          />
+        <div className="flex flex-row justify-end">
           <CrossIcon onClick={() => setClose(false)} />
         </div>
         {/* header */}
@@ -110,7 +92,6 @@ const CreatePostModal = ({
                     createPostHandler();
                     setHeadState("");
                     setTextState("");
-                    setDropDownState({ id: 3, name: "Лента" });
                     setClose();
                     setSlideToTop(false);
                   }
@@ -151,7 +132,6 @@ const CreatePostModal = ({
                       createPostHandler();
                       setHeadState("");
                       setTextState("");
-                      setDropDownState({ id: 3, name: "Лента" });
                       setClose();
 
                       setSlideToTop(false);
@@ -167,12 +147,6 @@ const CreatePostModal = ({
 
         {/* body */}
         <div className="flex px-[12px] h-[calc(100vh-132px)] mt-[58px] flex-col gap-[12px] overflow-y-auto">
-          <PostDropDown
-            choise={dropDownState}
-            items={categories}
-            handleSetChoise={(val) => setDropDownState(val)}
-          />
-
           <div className="w-full">
             <TextareaAutosize
               className="outline-none w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"

@@ -59,11 +59,7 @@ const FullPostModal = ({ item, setClose = () => {}, selectedId }) => {
             />
 
             <TextMain
-              text={
-                item.text.length <= 200
-                  ? item.text
-                  : item.text.slice(0, 199) + "..."
-              }
+              text={item.text}
               styles="font-normal text-[16px] leading-[16px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[15px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
             />
 
