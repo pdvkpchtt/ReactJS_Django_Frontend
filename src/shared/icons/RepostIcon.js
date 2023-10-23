@@ -1,12 +1,24 @@
-import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const RepostIcon = ({ onCLick = () => {} }) => {
+const RepostIcon = ({ onClick = () => {}, activeState = false }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
-  const [activeState, setActiveState] = useState(false);
+  const clickHandler = () => {
+    onClick();
+    toast(`Вы поделились записью`, {
+      position: isMobile ? "top-center" : "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      // theme: "dark",
+      progressStyle: { background: "#79a7d3" },
+    });
+  };
 
   return (
     <svg
@@ -15,21 +27,7 @@ const RepostIcon = ({ onCLick = () => {} }) => {
       height="24"
       viewBox="0 0 20 20"
       className="cursor-pointer"
-      onClick={() => {
-        if (!activeState)
-          toast(`Вы поделились записью`, {
-            position: isMobile ? "top-center" : "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            // theme: "dark",
-            progressStyle: { background: "#79a7d3" },
-          });
-        setActiveState(!activeState);
-      }}
+      onClick={() => clickHandler()}
     >
       <path
         className={`${

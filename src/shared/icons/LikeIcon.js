@@ -6,20 +6,18 @@ const LikeIcon = ({ onClick = () => {}, activeState = false }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   const clickHandler = () => {
-    if (!activeState) {
-      onClick();
-      toast(`Вы оценили запись`, {
-        position: isMobile ? "top-center" : "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        // theme: "dark",
-        progressStyle: { background: "#79a7d3" },
-      });
-    }
+    onClick();
+    toast(`Вы оценили запись`, {
+      position: isMobile ? "top-center" : "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      // theme: "dark",
+      progressStyle: { background: "#79a7d3" },
+    });
   };
 
   return (

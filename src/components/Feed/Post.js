@@ -35,14 +35,13 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
 
   const getReactionsHandler = async () => {
     const data = await getReactions(item.id);
-    console.log(data);
     setReactions(data.data);
   };
 
   useEffect(() => {
     getReactionsHandler();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reactions]);
 
   const deleteHandler = () => {
     deletePost(item.id);
@@ -102,19 +101,12 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                 <div className="flex flex-row items-center">
                   <LikeIcon
                     onClick={() => {
-                      if (
-                        !reactions.filter(
-                          (i) =>
-                            i.type !== "repost" && i.user_id !== user.userId
-                        ).length > 0
-                      ) {
-                        createReaction(user.userId, item.id, "like");
-                        getReactionsHandler();
-                      }
+                      createReaction(user.userId, item.id, "like");
+                      getReactionsHandler();
                     }}
                     activeState={
                       reactions.filter(
-                        (i) => i.type !== "repost" && i.user_id !== user.userId
+                        (i) => i.type !== "repost" && i.user_id === user.userId
                       ).length > 0
                     }
                   />
@@ -123,7 +115,17 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                     styles="text-[14px] select-none leading-[20px] ml-[4px] mr-[16px] font-medium"
                   />
 
-                  <RepostIcon />
+                  <RepostIcon
+                    onClick={() => {
+                      createReaction(user.userId, item.id, "repost");
+                      getReactionsHandler();
+                    }}
+                    activeState={
+                      reactions.filter(
+                        (i) => i.type !== "like" && i.user_id === user.userId
+                      ).length > 0
+                    }
+                  />
                   <TextMain
                     text={reactions.filter((i) => i.type !== "like").length}
                     styles="text-[14px] select-none leading-[20px] ml-[4px] mr-[16px] font-medium"
