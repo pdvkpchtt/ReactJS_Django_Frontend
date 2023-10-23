@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LayoutGroup, motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 
@@ -10,6 +10,8 @@ import FullPostModal from "./FullPostModal";
 import Card from "../../shared/ui/Card";
 import { AccountContext } from "../AccountContext";
 import deletePost from "../../server/feed/deletePost";
+import getReactions from "../../server/feed/getReactions";
+import createReaction from "../../server/feed/createReaction";
 
 import LikeIcon from "../../shared/icons/LikeIcon";
 import RepostIcon from "../../shared/icons/RepostIcon";
@@ -29,6 +31,18 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
 
   const [bottomModal, setBottomModal] = useState(false);
   const [deleted, setDelted] = useState(false);
+  const [reactions, setReactions] = useState([]);
+
+  const getReactionsHandler = async () => {
+    const data = await getReactions(item.id);
+    console.log(data);
+    setReactions(data.data);
+  };
+
+  useEffect(() => {
+    getReactionsHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const deleteHandler = () => {
     deletePost(item.id);
@@ -86,13 +100,34 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
 
                 {/* reactions */}
                 <div className="flex flex-row items-center">
-                  <LikeIcon />
+                  <LikeIcon
+                    onClick={() => {
+                      if (
+                        !reactions.filter(
+                          (i) =>
+                            i.type !== "repost" && i.user_id !== user.userId
+                        ).length > 0
+                      ) {
+                        createReaction(user.userId, item.id, "like");
+                        getReactionsHandler();
+                      }
+                    }}
+                    activeState={
+                      reactions.filter(
+                        (i) => i.type !== "repost" && i.user_id !== user.userId
+                      ).length > 0
+                    }
+                  />
                   <TextMain
-                    text={item.likes}
+                    text={reactions.filter((i) => i.type !== "repost").length}
                     styles="text-[14px] select-none leading-[20px] ml-[4px] mr-[16px] font-medium"
                   />
 
                   <RepostIcon />
+                  <TextMain
+                    text={reactions.filter((i) => i.type !== "like").length}
+                    styles="text-[14px] select-none leading-[20px] ml-[4px] mr-[16px] font-medium"
+                  />
                 </div>
                 {/* reactions */}
               </div>
