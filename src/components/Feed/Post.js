@@ -106,7 +106,9 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                     }}
                     activeState={
                       reactions.filter(
-                        (i) => i.type !== "repost" && i.user_id === user.userId
+                        (i) =>
+                          i.type !== "repost" &&
+                          i.user_id?.toString() === user.userId?.toString()
                       ).length > 0
                     }
                   />
@@ -122,7 +124,9 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                     }}
                     activeState={
                       reactions.filter(
-                        (i) => i.type !== "like" && i.user_id === user.userId
+                        (i) =>
+                          i.type !== "like" &&
+                          i.user_id?.toString() === user.userId?.toString()
                       ).length > 0
                     }
                   />
@@ -134,7 +138,7 @@ const Post = ({ item, setSelectedId = () => {}, selectedId }) => {
                 {/* reactions */}
               </div>
 
-              {item.user_id === user.userId && (
+              {item.user_id?.toString() === user.userId?.toString() && (
                 <TrashIcon onClick={() => setBottomModal(true)} />
               )}
             </Card>

@@ -22,6 +22,8 @@ const CreatePostModal = ({
   const { user } = useContext(AccountContext);
   const navigate = useNavigate();
 
+  const [uerId, setUerId] = useState(user.userId);
+
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -33,7 +35,7 @@ const CreatePostModal = ({
 
   const createPostHandler = async () => {
     navigate(0);
-    await createPost(user.userId, { textState, headState });
+    await createPost(uerId, { textState, headState });
   };
 
   useEffect(() => {
@@ -41,6 +43,8 @@ const CreatePostModal = ({
       if (open) document.body.style.overflow = "hidden";
       else document.body.style.overflow = "unset";
     }
+    setUerId(user.userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, isMobile]);
 
   return (

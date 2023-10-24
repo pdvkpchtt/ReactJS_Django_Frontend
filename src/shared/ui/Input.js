@@ -62,7 +62,11 @@ export const Input = ({
   );
 };
 
-export const SearchInput = ({ placeholder = "", value, onChange }) => {
+export const SearchInput = ({
+  placeholder = "",
+  value,
+  onChange = () => {},
+}) => {
   const ref = useRef(null); // чтобы при нажатии на весь иблок инпута происходила фокусировка
 
   return (
@@ -78,6 +82,7 @@ export const SearchInput = ({ placeholder = "", value, onChange }) => {
         ref={ref}
         placeholder={placeholder || ""}
         value={value}
+        onChange={(e) => onChange(e.target.value)}
         className="placeholder:font-normal w-full text-[#2c2c2c] dark:placeholder:text-[#8f8f8f] dark:text-white bg-transparent pt-[11px] pb-[11px] outline-none placeholder:text-[#bfbfbf] leading-[16.8px] tracking-[-0.013em] placeholder:leading-[16.8px] placeholder:tracking-[-0.013em]"
       />
     </div>

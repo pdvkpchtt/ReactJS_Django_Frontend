@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import TextMain from "../../shared/text/TextMain";
 import TextSecondary from "../../shared/text/TextSecondary";
 import Card from "../../shared/ui/Card";
@@ -9,12 +11,14 @@ const UserCard = ({ item }) => {
       <EmptyAvatar little />
 
       <div className="flex flex-col gap-[4px]">
-        <TextMain
-          text={item?.name || "Danil Kabirov"}
-          styles="truncate leading-[14px] font-medium"
-        />
+        <Link to={`/profile/${item.id}`}>
+          <TextMain
+            text={item?.name}
+            styles="truncate leading-[14px] font-medium"
+          />
+        </Link>
         <TextSecondary
-          text={item?.loaction || "Ufa, Russia"}
+          text={item?.location}
           styles="truncate leading-[13px] select-none text-[13px] font-medium"
         />
       </div>

@@ -1,68 +1,76 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { useMediaQuery } from "react-responsive";
+import { Waypoint } from "react-waypoint";
 
-import { SearchInput } from "../shared/ui/Input";
 import UserCard from "../components/Search/UserCard";
+import getUsers from "../server/search/getUsers";
+import CustomLoader from "../shared/ui/CustomLoader";
 
 const Search = () => {
-  const [trigger, settrigger] = useState(false);
-  const [scroll, setScroll] = useState(false);
+  // fetching
+  const [offset, setOffset] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [users, setUsers] = useState([]);
 
-  const [newScroll, setNewScroll] = useState(scroll);
-  useEffect(() => {
-    if (scroll > newScroll) settrigger(true);
-    else if (scroll < newScroll) settrigger(false);
-
-    setTimeout(() => {
-      setNewScroll(scroll);
-    }, [50]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scroll]);
-
-  const handleBodyScroll = (e) => {
-    setScroll(e.currentTarget.scrollY);
+  const getUsersHandle = () => {
+    setTimeout(async () => {
+      const data = await getUsers("", offset);
+      console.log("Client users: ", data);
+      setUsers([...users, ...data.data]);
+      if (data.data.length !== 0) setOffset(offset + 10);
+      else setHasNextPage(false);
+    }, [1000]);
   };
 
-  window.addEventListener("scroll", handleBodyScroll);
-
-  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+  useEffect(() => {
+    getUsersHandle();
+    setOffset(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // fetching
 
   return (
     <div
       className=" 
     h-full w-full
-    [@media(pointer:coarse)]:overflow-y-auto [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:mt-[63px] [@media(pointer:coarse)]:mb-[62px]
+    [@media(pointer:coarse)]:overflow-y-auto [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:mt-[38px] [@media(pointer:coarse)]:mb-[62px]
     [@media(hover)]:mt-[62px] [@media(hover)]:gap-[16px] [@media(hover)]:flex [@media(hover)]:flex-col 
   "
     >
-      <motion.div
-        animate={
-          newScroll > 76 && !isMobile && trigger
-            ? {
-                y: -86,
-              }
-            : { y: 0 }
-        }
-        transition={{ duration: 0.2 }}
-        className={`fixed
-      [@media(hover)]:rounded-[20px] [@media(hover)]:w-[980px]
+      {/* header */}
+      <div
+        className={`fixed bg-white h-[38px] dark:bg-[#212122] [@media(pointer:coarse)]:border-b-[0.7px] transition duration-[250ms] p-[12px] [@media(pointer:coarse)]:border-b-[#e7e7e7] [@media(pointer:coarse)]:dark:border-b-[#282828]
+      [@media(hover)]:hidden
       [@media(pointer:coarse)]:left-0  [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full z-[9]
       `}
       >
         <div
-          className={`bg-white dark:bg-[#212122] [@media(hover)]:rounded-[20px] [@media(hover)]:border-[1px] [@media(hover)]:border-[#e7e7e7] [@media(hover)]:dark:border-[#282828] [@media(pointer:coarse)]:border-b-[0.7px] transition duration-[250ms] p-[12px] [@media(pointer:coarse)]:border-b-[#e7e7e7] [@media(pointer:coarse)]:dark:border-b-[#282828]
-      
+          className={`[@media(hover)]:rounded-[20px] [@media(hover)]:border-[1px] [@media(pointer:coarse)]:max-w-[468px] [@media(pointer:coarse)]:mx-auto
       `}
         >
-          <SearchInput placeholder="Поиск пользователей..." />
+          <p className="font-bold text-[18px] text-[#79a7d3] leading-[14px] tracking-[-0.023em] select-none">
+            django
+          </p>
         </div>
-      </motion.div>
+      </div>
+      {/* header */}
 
-      <div className="[@media(hover)]:mt-[76px] flex flex-col gap-[8px]">
-        {[...Array(50)].map((item, key) => (
-          <UserCard key={key} />
+      <div className="flex flex-col gap-[8px]">
+        {users.map((item, key) => (
+          <UserCard key={key} item={item} />
         ))}
+        {hasNextPage && (
+          <Waypoint
+            onEnter={async () => {
+              console.log("Enter waypoint");
+              getUsersHandle(offset);
+            }}
+            topOffset="0px"
+          >
+            <div className="w-full flex  justify-center items-center h-full">
+              <CustomLoader diameter={36} />
+            </div>
+          </Waypoint>
+        )}
       </div>
     </div>
   );
