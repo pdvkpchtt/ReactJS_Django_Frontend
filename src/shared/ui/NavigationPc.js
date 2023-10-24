@@ -16,7 +16,7 @@ const NavigationPc = ({ useState, navState, layoutId = "", style = "" }) => {
   return (
     <LayoutGroup id={layoutId}>
       <div
-        className={`${style} [@media(pointer:coarse)]:hidden hideScrollbarNav flex w-full flex-row gap-[24px] overflow-y-hidden whitespace-nowrap`}
+        className={`${style} [@media(pointer:coarse)]:hidden hideScrollbarNav flex w-full [@media(hover)]:mb-[12px] flex-row gap-[24px] overflow-y-hidden whitespace-nowrap`}
       >
         {navState.map((item, key) => (
           <div

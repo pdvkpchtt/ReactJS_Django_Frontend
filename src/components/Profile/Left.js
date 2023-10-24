@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
@@ -14,6 +15,7 @@ import SettingsIcon from "../../shared/icons/SettingsIcon";
 import LogOutIcon from "../../shared/icons/LogOutIcon";
 
 const Left = ({ data, getUserInfo }) => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const [modalState, setModalState] = useState(false);
 
@@ -59,24 +61,28 @@ const Left = ({ data, getUserInfo }) => {
         </div>
       </Card>
 
-      <Card>
-        <ButtonGhost
-          text="Редактировать профиль"
-          onClick={() => setModalState(true)}
-        >
-          <SettingsIcon />
-        </ButtonGhost>
-      </Card>
+      {pathname === "/profile" && (
+        <>
+          <Card>
+            <ButtonGhost
+              text="Редактировать профиль"
+              onClick={() => setModalState(true)}
+            >
+              <SettingsIcon />
+            </ButtonGhost>
+          </Card>
 
-      <Card>
-        <ButtonGhost text="Выход" onClick={() => logOutHadle()}>
-          <LogOutIcon />
-        </ButtonGhost>
-      </Card>
+          <Card>
+            <ButtonGhost text="Выход" onClick={() => logOutHadle()}>
+              <LogOutIcon />
+            </ButtonGhost>
+          </Card>
 
-      {/* modal */}
-      <EditModal data={data} state={modalState} setstate={setModalState} />
-      {/* modal */}
+          {/* modal */}
+          <EditModal data={data} state={modalState} setstate={setModalState} />
+          {/* modal */}
+        </>
+      )}
     </>
   );
 };

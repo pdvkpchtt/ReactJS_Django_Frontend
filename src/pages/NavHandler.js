@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Feed from "./Feed";
 import Profile from "./Profile";
-import OthersProfile from "./OthersProfile";
 import Search from "./Search";
 import Auth from "./Auth";
 import { AccountContext } from "../components/AccountContext";
@@ -25,7 +24,7 @@ const NavHandler = () => {
       <Route path="/auth" element={<Auth />} />
       <Route path="/profile">
         <Route path="" element={<Profile />} />
-        <Route path=":id" element={<OthersProfile />} />
+        <Route path=":id" element={<Profile />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />
     </Routes>

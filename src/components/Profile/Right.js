@@ -1,11 +1,11 @@
-import TextMain from "../../shared/text/TextMain";
+import Info from "./Info";
+import ProfilePosts from "./ProfilePosts";
 
-const Right = () => {
+const Right = ({ navState, setNavState, data }) => {
   return (
     <>
-      {[...Array(100)].map((key) => (
-        <TextMain text={"post"} key={key} />
-      ))}
+      {navState[0].active && <Info />}
+      {navState[1].active && <ProfilePosts userId={data.id} />}
     </>
   );
 };

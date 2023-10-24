@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 import { AccountContext } from "../components/AccountContext";
 import Left from "../components/Profile/Left";
@@ -9,18 +10,21 @@ import NavigationMobile from "../shared/ui/NavigationMobile";
 import NavigationPc from "../shared/ui/NavigationPc";
 
 const Profile = () => {
+  const { pathname } = useLocation();
+
+  const { id } = useParams();
   const { user } = useContext(AccountContext);
 
   const [navState, setNavState] = useState([
     { id: 0, active: true, name: "Профиль" },
     { id: 1, active: false, name: "Посты" },
-    { id: 2, active: false, name: "Вы поделились" },
   ]);
 
   const [userInfo, setUserInfo] = useState({});
 
   const getUserInfo = async () => {
-    setUserInfo(await getUserById(user.userId));
+    if (pathname === "/profile") setUserInfo(await getUserById(user.userId));
+    else setUserInfo(await getUserById(id));
   };
 
   useEffect(() => {
