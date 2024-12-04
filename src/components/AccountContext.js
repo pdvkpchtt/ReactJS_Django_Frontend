@@ -9,6 +9,8 @@ const AccountContextWrap = ({ children }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  console.log(user);
+
   useEffect(() => {
     fetch(`http://localhost:8000/auth/login`, {
       credentials: "include",

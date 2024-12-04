@@ -4,8 +4,8 @@ import ProfilePosts from "./ProfilePosts";
 const Right = ({ navState, setNavState, data }) => {
   return (
     <>
-      {navState[0].active && <Info />}
-      {navState[1].active && <ProfilePosts userId={data.id} />}
+      {/* {navState[0].active && <Info />} */}
+      {navState[0].active && <ProfilePosts userId={data.id} />}
     </>
   );
 };

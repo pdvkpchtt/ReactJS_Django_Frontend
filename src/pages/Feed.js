@@ -27,9 +27,7 @@ const Feed = () => {
 
   useEffect(() => {
     getPostsHandle();
-    setOffset(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [offset]);
 
   return (
     <div
@@ -51,7 +49,7 @@ const Feed = () => {
       `}
         >
           <p className="font-bold text-[18px] text-[#79a7d3] leading-[14px] tracking-[-0.023em] select-none">
-            django
+            students
           </p>
         </div>
       </div>

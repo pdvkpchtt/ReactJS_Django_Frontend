@@ -16,8 +16,8 @@ const Profile = () => {
   const { user } = useContext(AccountContext);
 
   const [navState, setNavState] = useState([
-    { id: 0, active: true, name: "Профиль" },
-    { id: 1, active: false, name: "Посты" },
+    // { id: 0, active: true, name: "Профиль" },
+    { id: 1, active: true, name: "Посты" },
   ]);
 
   const [userInfo, setUserInfo] = useState({});

@@ -62,11 +62,10 @@ const FullPostModal = ({ item, setClose = () => {}, selectedId }) => {
               text={item.text}
               styles="font-normal text-[16px] leading-[16px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[15px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
             />
-
             {/* body */}
 
             {/* reactions */}
-            <div className="flex flex-row items-center">
+            {/* <div className="flex flex-row items-center">
               <LikeIcon />
               <TextMain
                 text={item.likes}
@@ -74,7 +73,7 @@ const FullPostModal = ({ item, setClose = () => {}, selectedId }) => {
               />
 
               <RepostIcon />
-            </div>
+            </div> */}
             {/* reactions */}
           </div>
 

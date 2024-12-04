@@ -30,9 +30,7 @@ const ProfilePosts = ({ userId }) => {
 
   useEffect(() => {
     getPostsHandle();
-    setOffset(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [offset]);
 
   return (
     <LayoutGroup>

@@ -20,7 +20,7 @@ const FeedNav = () => {
             styles="font-medium leading-[14px]"
           />
           <TextSecondary
-            text="По вопросам рекламы: kabirdanilov14@gmail.com"
+            text="По вопросам рекламы: students@gmail.com"
             styles="text-[12px] font-medium leading-[12px]"
           />
         </Card>
